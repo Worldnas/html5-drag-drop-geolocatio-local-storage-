@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>geo location</title>
+</head>
+
+<body>
+	<section id="wrapper"></section>
+	<article></article>
+	<script>
+		function success(position) {
+			var mapcanvas = document.createElement("div");
+			mapcanvas.id="map";
+			mapcanvas.width="400px";
+			mapcanvas.height="600px";
+			document.querySelector("article").appendChild(mapcanvas);
+			var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			var option={
+				zoom: 15,
+				center: coords,
+				mapTypeControl:false,
+				navigationControlOptions:{
+					style: google.maps.navigationControlStyle.SMALL
+				},
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var naghshe= new google.maps.Map(document.getElementById("map"),option);
+			var marker= new google.maps.Marker({position: coords,
+			map:map,
+			title:"you are here"
+			});
+		}
+		
+		if(navigator.geolocation)
+			{
+				navigator.geolocation.getCurrentPosition(success);
+			}
+		else
+			{
+				Error("Geo Location is not supported");
+			}
+	</script>
+</body>
+</html>
